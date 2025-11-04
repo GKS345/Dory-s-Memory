@@ -1,0 +1,5 @@
+{
+  "name": "Memória de Dory",
+  "description": "A Telegram-like chat application where users can join rooms using random codes. The chat history is ephemeral and disappears when the user leaves the room. Features an AI assistant powered by Gemini.",
+  "requestFramePermissions": []
+}
