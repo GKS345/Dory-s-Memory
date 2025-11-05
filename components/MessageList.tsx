@@ -1,7 +1,7 @@
 
 import React, { useEffect, useRef } from 'react';
-import { Message } from '../types';
-import { BotIcon, UserCircleIcon } from './icons';
+import { Message } from '../types.ts';
+import { BotIcon, UserCircleIcon } from './icons.tsx';
 
 interface MessageListProps {
   messages: Message[];

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { UsersIcon, HashIcon, LogoutIcon, UserCircleIcon, BotIcon } from './icons';
+import { UsersIcon, HashIcon, LogoutIcon, UserCircleIcon, BotIcon } from './icons.tsx';
 
 interface UserListProps {
   users: string[];

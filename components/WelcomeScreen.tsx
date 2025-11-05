@@ -1,6 +1,6 @@
 
 import React, { useState, useCallback } from 'react';
-import { LogoIcon } from './icons';
+import { LogoIcon } from './icons.tsx';
 
 interface WelcomeScreenProps {
   onJoin: (username: string, roomCode: string) => void;

@@ -1,10 +1,10 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { Message } from '../types';
-import UserList from './UserList';
-import MessageList from './MessageList';
-import MessageInput from './MessageInput';
-import { getAIResponse } from '../services/geminiService';
+import { Message } from '../types.ts';
+import UserList from './UserList.tsx';
+import MessageList from './MessageList.tsx';
+import MessageInput from './MessageInput.tsx';
+import { getAIResponse } from '../services/geminiService.ts';
 
 interface ChatRoomProps {
   username: string;

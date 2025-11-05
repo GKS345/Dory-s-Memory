@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback } from 'react';
-import WelcomeScreen from './components/WelcomeScreen';
-import ChatRoom from './components/ChatRoom';
+import WelcomeScreen from './components/WelcomeScreen.tsx';
+import ChatRoom from './components/ChatRoom.tsx';
 
 type AppState = 'welcome' | 'chat';
 
