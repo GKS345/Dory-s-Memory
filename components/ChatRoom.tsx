@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { Message } from '../types.ts';
 import UserList from './UserList.tsx';
@@ -12,6 +11,8 @@ interface ChatRoomProps {
   onLeave: () => void;
 }
 
+const ORIGINAL_TITLE = 'Ephemeral Chat Room';
+
 const ChatRoom: React.FC<ChatRoomProps> = ({ username, roomCode, onLeave }) => {
   // In a real application, users would come from a backend service.
   // Here we simulate it with the current user and a bot.
@@ -19,6 +20,51 @@ const ChatRoom: React.FC<ChatRoomProps> = ({ username, roomCode, onLeave }) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isAiTyping, setIsAiTyping] = useState(false);
   
+  // State for notifications
+  const [isWindowFocused, setIsWindowFocused] = useState(document.hasFocus());
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Effect for handling window focus/blur
+  useEffect(() => {
+    const handleFocus = () => {
+      setIsWindowFocused(true);
+      setUnreadCount(0); // Reset count on focus
+    };
+    const handleBlur = () => {
+      setIsWindowFocused(false);
+    };
+
+    window.addEventListener('focus', handleFocus);
+    window.addEventListener('blur', handleBlur);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener('blur', handleBlur);
+      document.title = ORIGINAL_TITLE; 
+    };
+  }, []);
+
+  // Effect for updating document title based on unread count
+  useEffect(() => {
+    if (unreadCount > 0) {
+      document.title = `(${unreadCount}) ${ORIGINAL_TITLE}`;
+    } else {
+      document.title = ORIGINAL_TITLE;
+    }
+  }, [unreadCount]);
+
+  // Effect for detecting new messages and updating unread count
+  useEffect(() => {
+    if (messages.length === 0) return;
+
+    const lastMessage = messages[messages.length - 1];
+    // Only notify for messages from others, not the user themselves or the system.
+    if (!isWindowFocused && lastMessage.user !== username && lastMessage.user !== 'System') {
+      setUnreadCount(prev => prev + 1);
+    }
+  }, [messages, isWindowFocused, username]);
+
   useEffect(() => {
     setUsers([username, 'AI Assistant']);
     setMessages([{
